@@ -1,0 +1,45 @@
+import Bench from './bench';
+import { blake2b as wasmBLAKE2b, createBLAKE2b } from 'hash-wasm';
+import npm_blake2b from 'blake2b';
+import npm_blake2bwasm from 'blake2b-wasm';
+import blakejs from 'blakejs';
+import { getVersion } from '../utils';
+npm_blake2bwasm.ready(() => []);
+let blake2b = null;
+
+const suite = new Bench(
+  [
+    { size: 32, divisor: 200 },
+    { size: 1 * 1024 * 1024, divisor: 1 },
+  ],
+  async () => {
+    blake2b = await createBLAKE2b();
+  },
+);
+
+suite.add(`hash-wasm ${getVersion('hash-wasm')} blake2b()`, async (buf) => {
+  return wasmBLAKE2b(buf);
+});
+
+suite.add(`hash-wasm ${getVersion('hash-wasm')} createBLAKE2b()`, (buf) => {
+  blake2b.init();
+  blake2b.update(buf);
+  return blake2b.digest();
+});
+
+suite.add(`blake2b ${getVersion('blake2b')}`, (buf) => {
+  // const blake2b_output = new Uint8Array(64);
+  const hasher = npm_blake2b(64);
+  hasher.update(buf);
+  return hasher.digest('hex');
+});
+
+suite.add(`blake2b-wasm ${getVersion('blake2b-wasm')}`, (buf) => {
+  const hasher = npm_blake2bwasm(64);
+  hasher.update(buf);
+  return hasher.digest('hex');
+});
+
+suite.add(`blakejs ${getVersion('blakejs')}`, (buf) => {
+  return blakejs.blake2bHex(buf);
+});
