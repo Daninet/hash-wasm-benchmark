@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'js/[name].[hash].js',
-    publicPath: '/',
+    publicPath: '/hash-wasm-benchmark/',
     chunkFilename: 'js/[id].[chunkhash].js',
   },
   resolve: {
