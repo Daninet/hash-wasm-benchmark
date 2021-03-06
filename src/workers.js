@@ -1,5 +1,6 @@
 import Argon2idWorker from './benchmark/argon2id.worker.js';
 import BLAKE2bWorker from './benchmark/blake2b.worker.js';
+import BLAKE3Worker from './benchmark/blake3.worker.js';
 import MD4Worker from './benchmark/md4.worker.js';
 import MD5Worker from './benchmark/md5.worker.js';
 import CRC32Worker from './benchmark/crc32.worker.js';
@@ -20,6 +21,10 @@ const workerData = [
   {
     name: 'blake2b',
     factory: BLAKE2bWorker,
+  },
+  {
+    name: 'blake3',
+    factory: BLAKE3Worker,
   },
   {
     name: 'md4',
