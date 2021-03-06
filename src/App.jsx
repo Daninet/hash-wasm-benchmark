@@ -62,6 +62,7 @@ class App extends React.Component {
     return (
       <section className="app">
         <h2>Hash-wasm benchmark</h2>
+        <p><a href="https://github.com/Daninet/hash-wasm-benchmark" target="_blank">Source code</a></p>
         {running && <p>Running...</p>}
         {workers.map(worker => (
           <Table

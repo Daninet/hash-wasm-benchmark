@@ -27,3 +27,7 @@ button {
 .bold {
   font-weight: bold;
 }
+
+a {
+  color: blue;
+}
