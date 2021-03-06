@@ -14,7 +14,7 @@ const salt = 'MYSALT';
 const suite = new Bench([{ size: 16, divisor: 1, showIterations: true }]);
 
 const hasher = createSHA512();
-suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
+suite.addAsync(`hash-wasm ${getVersion('hash-wasm')}`, (buf) => {
   return wasmPBKDF2({
     password: buf,
     salt,
@@ -24,11 +24,11 @@ suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
   });
 });
 
-suite.add(`pbkdf2 ${getVersion('pbkdf2')}`, (buf) => {
+suite.addSync(`pbkdf2 ${getVersion('pbkdf2')}`, (buf) => {
   return pbkdf2.pbkdf2Sync(buf, salt, iterations, hashSize, 'sha512').toString('hex');
 });
 
-suite.add(`crypto-js ${getVersion('crypto-js')}`, (buf) => {
+suite.addSync(`crypto-js ${getVersion('crypto-js')}`, (buf) => {
   return cryptoJsPBKDF2(cryptoJsLib.create(buf), salt, {
     keySize: hashSize / 4,
     iterations,

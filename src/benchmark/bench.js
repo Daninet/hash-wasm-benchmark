@@ -32,15 +32,32 @@ class Bench {
     }, 50);
   }
 
-  add(name, fn) {
+  addAsync(name, fn) {
     this.functions.push({
       name,
       fn: async (buf, divisor) => {
-        for (let i = 0; i < divisor; i++) {
-          await fn(buf);
+        if (divisor > 1) {
+          await Promise.all([new Array(divisor - 1).fill(0).map(() => fn(buf))]);
         }
         return await fn(buf);
       },
+      async: true,
+      sync: false,
+    });
+  }
+
+  addSync(name, fn) {
+    this.functions.push({
+      name,
+      fn: (buf, divisor) => {
+        let res = '';
+        for (let i = 0; i < divisor; i++) {
+          res = fn(buf);
+        }
+        return res;
+      },
+      async: false,
+      sync: true,
     });
   }
 
@@ -63,7 +80,7 @@ class Bench {
     };
   }
 
-  async measure(func, scenario, divisor, targetDuration) {
+  async measureAsync(func, scenario, divisor, targetDuration) {
     let cycles = 0;
     let now = performance.now();
     const benchStart = now;
@@ -77,6 +94,29 @@ class Bench {
     const duration = benchEnd - benchStart;
 
     return this.getResults(func, scenario, divisor, cycles, duration);
+  }
+
+  measureSync(func, scenario, divisor, targetDuration) {
+    let cycles = 0;
+    let now = performance.now();
+    const benchStart = now;
+    const stopAt = now + targetDuration;
+    while (now < stopAt) {
+      func.fn(scenario.buf, divisor);
+      cycles = cycles + 1;
+      now = performance.now();
+    }
+    const benchEnd = now;
+    const duration = benchEnd - benchStart;
+
+    return this.getResults(func, scenario, divisor, cycles, duration);
+  }
+
+  measure(func, scenario, divisor, targetDuration) {
+    if (func.async) {
+      return this.measureAsync(func, scenario, divisor, targetDuration);
+    }
+    return this.measureSync(func, scenario, divisor, targetDuration);
   }
 
   async calibrateDivisor(func, scenario) {
@@ -114,7 +154,7 @@ class Bench {
         const scenario = this.scenarios[scenarioIndex];
         const result = validResults[scenarioIndex];
         // warm up
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
           const x = await func.fn(scenario.buf, scenario.divisor);
           if (x !== result) {
             return this.fail(result, x);

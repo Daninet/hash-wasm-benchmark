@@ -12,7 +12,7 @@ const salt = 'MYSALT123';
 
 const suite = new Bench([{ size: 16, divisor: 1, showIterations: true }]);
 
-suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
+suite.addAsync(`hash-wasm ${getVersion('hash-wasm')}`, (buf) => {
   return wasmScrypt({
     password: buf,
     salt,
@@ -23,7 +23,7 @@ suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
   });
 });
 
-suite.add(`scrypt-js ${getVersion('scrypt-js')}`, async (buf) => {
+suite.addAsync(`scrypt-js ${getVersion('scrypt-js')}`, async (buf) => {
   const hash = await scryptjs.scrypt(
     buf,
     Buffer.from(salt),
@@ -35,7 +35,7 @@ suite.add(`scrypt-js ${getVersion('scrypt-js')}`, async (buf) => {
   return Buffer.from(hash).toString('hex');
 });
 
-suite.add(`scryptsy ${getVersion('scryptsy')}`, async (buf) => {
+suite.addSync(`scryptsy ${getVersion('scryptsy')}`, (buf) => {
   return scryptsy(
     buf,
     salt,

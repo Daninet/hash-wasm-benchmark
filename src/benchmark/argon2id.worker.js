@@ -13,7 +13,7 @@ const salt = 'MYSALT123';
 
 const suite = new Bench([{ size: 16, divisor: 1, showIterations: true }]);
 
-suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
+suite.addAsync(`hash-wasm ${getVersion('hash-wasm')}`, (buf) => {
   return wasmArgon2({
     password: buf,
     salt,
@@ -24,7 +24,7 @@ suite.add(`hash-wasm ${getVersion('hash-wasm')}`, async (buf) => {
   });
 });
 
-suite.add(`argon2-wasm-pro ${getVersion('argon2-wasm-pro')}`, async (buf) => {
+suite.addAsync(`argon2-wasm-pro ${getVersion('argon2-wasm-pro')}`, async (buf) => {
   const hash = await argon2WasmPro.hash({
     pass: buf,
     salt,
@@ -37,7 +37,7 @@ suite.add(`argon2-wasm-pro ${getVersion('argon2-wasm-pro')}`, async (buf) => {
   return hash.hashHex;
 });
 
-suite.add(`argon2-wasm ${getVersion('argon2-wasm')}`, async (buf) => {
+suite.addAsync(`argon2-wasm ${getVersion('argon2-wasm')}`, async (buf) => {
   const hash = await argon2Wasm.hash({
     pass: buf,
     salt,
@@ -50,9 +50,7 @@ suite.add(`argon2-wasm ${getVersion('argon2-wasm')}`, async (buf) => {
   return hash.hashHex;
 });
 
-console.log(argon2Browser);
-
-suite.add(`argon2-browser ${getVersion('argon2-browser')}`, async (buf) => {
+suite.addAsync(`argon2-browser ${getVersion('argon2-browser')}`, async (buf) => {
   const hash = await argon2Browser.hash({
     pass: buf,
     salt,
