@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.config.js",
-    "build": "webpack --config webpack.config.js --mode production --no-color"
+    "build": "webpack --config webpack.config.js --mode production --no-color --silent"
   },
   "author": "Dani Biro",
   "license": "ISC",
