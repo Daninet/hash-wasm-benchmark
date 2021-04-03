@@ -20,6 +20,8 @@ jobs:
       - run: npm ci
 
       - run: npm run build
+        env:
+          NODE_OPTIONS: "--max_old_space_size=6144"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
