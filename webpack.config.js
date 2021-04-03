@@ -77,5 +77,15 @@ module.exports = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/app.*'],
     }),
+    {
+      apply: (compiler) => {
+        compiler.hooks.done.tap('DonePlugin', (stats) => {
+          console.log('Compile is done !');
+          setTimeout(() => {
+            process.exit(0);
+          });
+        });
+      }
+    }
   ],
 };
