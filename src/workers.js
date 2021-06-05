@@ -1,3 +1,4 @@
+import Adler32Worker from './benchmark/adler32.worker.js';
 import Argon2idWorker from './benchmark/argon2id.worker.js';
 import BLAKE2bWorker from './benchmark/blake2b.worker.js';
 import BLAKE3Worker from './benchmark/blake3.worker.js';
@@ -14,6 +15,10 @@ import PBKDF2Worker from './benchmark/pbkdf2.worker.js';
 import ScryptWorker from './benchmark/scrypt.worker.js';
 
 const workerData = [
+  {
+    name: 'adler32',
+    factory: Adler32Worker,
+  },
   {
     name: 'argon2id',
     factory: Argon2idWorker,
