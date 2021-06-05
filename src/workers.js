@@ -1,6 +1,8 @@
 import Adler32Worker from './benchmark/adler32.worker.js';
 import Argon2idWorker from './benchmark/argon2id.worker.js';
+import BcryptWorker from './benchmark/bcrypt.worker.js';
 import BLAKE2bWorker from './benchmark/blake2b.worker.js';
+import BLAKE2sWorker from './benchmark/blake2s.worker.js';
 import BLAKE3Worker from './benchmark/blake3.worker.js';
 import MD4Worker from './benchmark/md4.worker.js';
 import MD5Worker from './benchmark/md5.worker.js';
@@ -10,6 +12,7 @@ import SHA1Worker from './benchmark/sha1.worker.js';
 import SHA3Worker from './benchmark/sha3.worker.js';
 import SHA256Worker from './benchmark/sha256.worker.js';
 import SHA512Worker from './benchmark/sha512.worker.js';
+import XXHash32Worker from './benchmark/xxhash32.worker.js';
 import XXHash64Worker from './benchmark/xxhash64.worker.js';
 import PBKDF2Worker from './benchmark/pbkdf2.worker.js';
 import ScryptWorker from './benchmark/scrypt.worker.js';
@@ -24,8 +27,16 @@ const workerData = [
     factory: Argon2idWorker,
   },
   {
+    name: 'bcrypt (cost = 8)',
+    factory: BcryptWorker,
+  },
+  {
     name: 'blake2b',
     factory: BLAKE2bWorker,
+  },
+  {
+    name: 'blake2s',
+    factory: BLAKE2sWorker,
   },
   {
     name: 'blake3',
@@ -62,6 +73,10 @@ const workerData = [
   {
     name: 'sha3-512',
     factory: SHA3Worker,
+  },
+  {
+    name: 'xxhash32',
+    factory: XXHash32Worker,
   },
   {
     name: 'xxhash64',
