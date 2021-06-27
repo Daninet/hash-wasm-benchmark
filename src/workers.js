@@ -14,6 +14,8 @@ import SHA256Worker from './benchmark/sha256.worker.js';
 import SHA512Worker from './benchmark/sha512.worker.js';
 import XXHash32Worker from './benchmark/xxhash32.worker.js';
 import XXHash64Worker from './benchmark/xxhash64.worker.js';
+import XXHash3Worker from './benchmark/xxhash3.worker.js';
+import XXHash128Worker from './benchmark/xxhash128.worker.js';
 import PBKDF2Worker from './benchmark/pbkdf2.worker.js';
 import ScryptWorker from './benchmark/scrypt.worker.js';
 
@@ -43,6 +45,10 @@ const workerData = [
     factory: BLAKE3Worker,
   },
   {
+    name: 'crc32',
+    factory: CRC32Worker,
+  },
+  {
     name: 'md4',
     factory: MD4Worker,
   },
@@ -51,12 +57,12 @@ const workerData = [
     factory: MD5Worker,
   },
   {
-    name: 'crc32',
-    factory: CRC32Worker,
-  },
-  {
     name: 'ripemd160',
     factory: RIPEMD160Worker,
+  },
+  {
+    name: 'scrypt (N=1024,r=8,p=2)',
+    factory: ScryptWorker,
   },
   {
     name: 'sha1',
@@ -75,6 +81,10 @@ const workerData = [
     factory: SHA3Worker,
   },
   {
+    name: 'pbkdf2 (1000 iterations)',
+    factory: PBKDF2Worker,
+  },
+  {
     name: 'xxhash32',
     factory: XXHash32Worker,
   },
@@ -83,12 +93,12 @@ const workerData = [
     factory: XXHash64Worker,
   },
   {
-    name: 'pbkdf2 (1000 iterations)',
-    factory: PBKDF2Worker,
+    name: 'xxhash3',
+    factory: XXHash3Worker,
   },
   {
-    name: 'scrypt (N=1024,r=8,p=2)',
-    factory: ScryptWorker,
+    name: 'xxhash128',
+    factory: XXHash128Worker,
   },
 ];
 
