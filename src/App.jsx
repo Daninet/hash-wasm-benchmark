@@ -72,6 +72,9 @@ class App extends React.Component {
             Source code
           </a>
         </p>
+        <p>
+          WARNING: DevTools needs to be closed when running benchmarks. It affects performance.
+        </p>
         {running && <p>Running...</p>}
         {workers.map(worker => (
           <Table
