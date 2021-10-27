@@ -2,6 +2,8 @@ import Bench from './bench';
 import { scrypt as wasmScrypt } from 'hash-wasm';
 import scryptjs from 'scrypt-js';
 import scryptsy from 'scryptsy';
+import { scrypt as nobleScrypt } from 'noble-hashes/lib/scrypt';
+import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
 import { getVersion } from '../utils';
 
 const costFactor = 1024;
@@ -44,4 +46,19 @@ suite.addSync(`scryptsy ${getVersion('scryptsy')}`, (buf) => {
     parallelism,
     hashLength,
   ).toString('hex');
+});
+
+suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, (buf) => {
+  return nobleToHex(
+    nobleScrypt(
+      buf,
+      salt,
+      {
+        N: costFactor,
+        r: blockSize,
+        p: parallelism,
+        dkLen: hashLength
+      },
+    )
+  );
 });

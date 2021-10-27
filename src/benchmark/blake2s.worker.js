@@ -3,6 +3,8 @@ import { blake2s as wasmBLAKE2s, createBLAKE2s } from 'hash-wasm';
 import npm_blake2s from 'blake2s';
 import blake2sJs from 'blake2s-js';
 import blakejs from 'blakejs';
+import { blake2s as nobleBlake2s } from 'noble-hashes/lib/blake2s';
+import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
 import { getVersion } from '../utils';
 let blake2s = null;
 
@@ -38,4 +40,9 @@ suite.addSync(`blakejs ${getVersion('blakejs')}`, (buf) => {
 
 suite.addSync(`blake2s-js ${getVersion('blake2s-js')}`, (buf) => {
   return new blake2sJs(32).update(buf).hexDigest();
+});
+
+suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, buf => {
+  const hash = nobleBlake2s(buf);
+  return nobleToHex(hash);
 });

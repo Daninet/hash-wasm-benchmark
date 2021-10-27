@@ -3,6 +3,8 @@ import { sha3 as wasmSHA3, createSHA3 } from 'hash-wasm';
 import { SHA3 as npmSHA3 } from 'sha3';
 import JsSHA from 'jssha';
 import sha3Wasm from 'sha3-wasm';
+import { sha3_512 as nobleSha3 } from 'noble-hashes/lib/sha3';
+import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
 import { getVersion } from '../utils';
 let hashInstance = null;
 
@@ -39,4 +41,9 @@ suite.addSync(`sha3-wasm ${getVersion('sha3-wasm')}`, buf => {
   const hashObj = sha3Wasm.sha3_512();
   hashObj.update(buf);
   return hashObj.digest('hex');
+});
+
+suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, buf => {
+  const hash = nobleSha3(buf);
+  return nobleToHex(hash);
 });

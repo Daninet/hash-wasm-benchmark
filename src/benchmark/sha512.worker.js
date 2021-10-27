@@ -6,6 +6,8 @@ import cryptoJsHex from 'crypto-js/enc-hex';
 import cryptoJsLib from 'crypto-js/lib-typedarrays';
 import JsSHA from 'jssha';
 import sha512Wasm from 'sha512-wasm';
+import { sha512 as nobleSha512 } from 'noble-hashes/lib/sha512';
+import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
 import { getVersion } from '../utils';
 
 let hashInstance = null;
@@ -48,4 +50,9 @@ suite.addSync(`sha512-wasm ${getVersion('sha512-wasm')}`, buf => {
   const hashObj = sha512Wasm();
   hashObj.update(buf);
   return hashObj.digest('hex');
+});
+
+suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, buf => {
+  const hash = nobleSha512(buf);
+  return nobleToHex(hash);
 });
