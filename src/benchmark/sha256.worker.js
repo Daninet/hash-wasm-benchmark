@@ -6,8 +6,8 @@ import cryptoJsHex from 'crypto-js/enc-hex';
 import cryptoJsLib from 'crypto-js/lib-typedarrays';
 import JsSHA from 'jssha';
 import sha256Wasm from 'sha256-wasm';
-import { sha256 as nobleSha256 } from 'noble-hashes/lib/sha256';
-import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
+import { sha256 as nobleSha256 } from '@noble/hashes/sha256';
+import { bytesToHex as nobleToHex } from '@noble/hashes/utils';
 import { getVersion } from '../utils';
 let hashInstance = null;
 
@@ -51,7 +51,7 @@ suite.addSync(`sha256-wasm ${getVersion('sha256-wasm')}`, buf => {
   return hashObj.digest('hex');
 });
 
-suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, buf => {
+suite.addSync(`noble-hashes ${getVersion('@noble/hashes')}`, buf => {
   const hash = nobleSha256(buf);
   return nobleToHex(hash);
 });

@@ -4,8 +4,8 @@ import npmRipemd160 from 'ripemd160';
 import cryptoJsRIPEMD160 from 'crypto-js/ripemd160';
 import cryptoJsHex from 'crypto-js/enc-hex';
 import cryptoJsLib from 'crypto-js/lib-typedarrays';
-import { ripemd160 as nobleRipeMd160 } from 'noble-hashes/lib/ripemd160';
-import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
+import { ripemd160 as nobleRipeMd160 } from '@noble/hashes/ripemd160';
+import { bytesToHex as nobleToHex } from '@noble/hashes/utils';
 import { getVersion } from '../utils';
 let hashInstance = null;
 
@@ -34,7 +34,7 @@ suite.addSync(`ripemd160 ${getVersion('ripemd160')}`, buf => {
   return new npmRipemd160().update(buf).digest('hex');
 });
 
-suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, buf => {
+suite.addSync(`noble-hashes ${getVersion('@noble/hashes')}`, buf => {
   const hash = nobleRipeMd160(buf);
   return nobleToHex(hash);
 });

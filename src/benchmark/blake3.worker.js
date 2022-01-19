@@ -1,6 +1,9 @@
 import Bench from './bench';
 import { blake3 as wasmBLAKE3, createBLAKE3 } from 'hash-wasm';
+import { blake3 as nobleBlake3 } from '@noble/hashes/blake3';
+
 import { getVersion } from '../utils';
+import { bytesToHex as nobleToHex } from '@noble/hashes/utils';
 let hashInstance = null;
 let blake3Instance = null;
 
@@ -27,4 +30,8 @@ suite.addSync(`hash-wasm ${getVersion('hash-wasm')} createBLAKE3()`, (buf) => {
 
 suite.addSync(`blake3 ${getVersion('blake3')}`, (buf) => {
   return blake3Instance.hash(buf).toString('hex');
+});
+
+suite.addSync(`noble-hashes ${getVersion('@noble/hashes')}`, (buf) => {
+  return nobleToHex(nobleBlake3(buf));
 });
