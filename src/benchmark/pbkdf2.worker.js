@@ -5,9 +5,9 @@ import cryptojs from 'crypto-js';
 import cryptoJsPBKDF2 from 'crypto-js/pbkdf2';
 import cryptoJsHex from 'crypto-js/enc-hex';
 import cryptoJsLib from 'crypto-js/lib-typedarrays';
-import { sha512 as nobleSha512 } from 'noble-hashes/lib/sha512';
-import { pbkdf2 as noblePbkdf2 } from 'noble-hashes/lib/pbkdf2';
-import { bytesToHex as nobleToHex } from 'noble-hashes/lib/utils';
+import { sha512 as nobleSha512 } from '@noble/hashes/sha512';
+import { pbkdf2 as noblePbkdf2 } from '@noble/hashes/pbkdf2';
+import { bytesToHex as nobleToHex } from '@noble/hashes/utils';
 import { getVersion } from '../utils';
 
 const iterations = 1000;
@@ -39,7 +39,7 @@ suite.addSync(`crypto-js ${getVersion('crypto-js')}`, (buf) => {
   }).toString(cryptoJsHex);
 });
 
-suite.addSync(`noble-hashes ${getVersion('noble-hashes')}`, (buf) => {
+suite.addSync(`noble-hashes ${getVersion('@noble/hashes')}`, (buf) => {
   return nobleToHex(
     noblePbkdf2(
       nobleSha512,

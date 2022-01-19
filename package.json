@@ -45,7 +45,7 @@
     "md5": "2.3.0",
     "md5-wasm": "2.0.0",
     "mini-css-extract-plugin": "0.9.0",
-    "noble-hashes": "0.2.2",
+    "@noble/hashes": "1.0.0",
     "node-forge": "0.10.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pbkdf2": "3.1.2",
