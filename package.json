@@ -38,7 +38,7 @@
     "crypto-js": "4.1.1",
     "css-loader": "^6.8.1",
     "file-loader": "6.2.0",
-    "hash-wasm": "4.9.0",
+    "hash-wasm": "4.10.0",
     "html-webpack-plugin": "^5.5.3",
     "js-md4": "0.3.2",
     "jssha": "3.3.1",

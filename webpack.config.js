@@ -10,7 +10,7 @@ module.exports = {
   entry: { app: path.resolve(__dirname, "src/index.js") },
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "js/[name].[hash].js",
+    filename: "js/[name].[fullhash].js",
     publicPath: "/hash-wasm-benchmark/",
     chunkFilename: "js/[id].[chunkhash].js",
   },
@@ -64,7 +64,7 @@ module.exports = {
           loader: "url-loader",
           options: {
             limit: 1000,
-            name: "[hash].[ext]",
+            name: "[fullhash].[ext]",
             outputPath: "assets",
           },
         },
@@ -79,8 +79,8 @@ module.exports = {
       Buffer: ["buffer", "Buffer"],
     }),
     new MiniCssExtractPlugin({
-      filename: "css/[name].[hash].css",
-      chunkFilename: "css/[id].[hash].css",
+      filename: "css/[name].[fullhash].css",
+      chunkFilename: "css/[id].[fullhash].css",
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
